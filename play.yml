@@ -1,0 +1,48 @@
+---
+- hosts: redhat_servers
+  #vars_files:
+  #  - "passwords.yml"
+  become:
+    true
+  become_method:
+    su
+  become_user:
+    root
+  remote_user:
+    vagrant
+  #password: "{{ password.root | password_hash('sha256') }}"
+  roles:
+   - epel
+   - nginx
+  
+#  tasks:
+#    - name: Install Nginx Web Server
+#      yum:
+#        name=nginx
+#        state=latest
+#      when:
+#        ansible_os_family == "RedHat"
+#      notify:
+#        - nginx systemd
+#    - name: Replace nginx.conf
+#      template:
+#        src=nginx.conf
+#        dest=/etc/nginx/nginx.conf
+#    - name: nginx systemd
+#      systemd:
+#        name: nginx
+#        enabled: yes
+#        state: started
+#    - name: nginx restart
+#      service:
+#        name: nginx
+#        state: restarted
+
+
+  vars:
+    nginx_user: nginx
+    listen_port: 8080
+#    worker_processes: auto
+#    worker_connections: 2048
+#    client_max_body_size: 512M
+...
